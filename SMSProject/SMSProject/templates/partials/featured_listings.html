@@ -1,0 +1,36 @@
+<section class="featured-listings-section section">
+    <div class="container">
+        <h2 class="section-title">Latest Listings</h2>
+        <div class="featured-listings-slider">
+            {% for resource in featured_resources %}
+            <div class="resource-card">
+                {% if resource.image %}
+                    <img src="{{ resource.image.url }}" alt="{{ resource.title }}" class="resource-image" loading="lazy">
+                {% else %}
+                    <div class="resource-image-placeholder">📄</div>
+                {% endif %}
+                <div class="resource-info">
+                    <h3 class="resource-title">{{ resource.title }}</h3>
+                    <p class="resource-meta">{{ resource.category }} &middot; {{ resource.condition }}</p>
+                    <p class="resource-price">
+                        {% if resource.price %}
+                            ₹{{ resource.price }}
+                        {% elif resource.exchange_only %}
+                            Exchange Only
+                        {% else %}
+                            Free
+                        {% endif %}
+                    </p>
+                    <div class="resource-owner">
+                        <span class="owner-avatar">{{ resource.uploaded_by.username|slice:":1"|upper }}</span>
+                        <span class="owner-name">{{ resource.uploaded_by.get_full_name|default:resource.uploaded_by.username }}</span>
+                    </div>
+                    <a href="{% url 'resource_detail' resource.id %}" class="btn btn-secondary btn-sm">View Details</a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="empty-state">No featured resources right now. <a href="{% url 'upload_resource' %}">Post one!</a></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

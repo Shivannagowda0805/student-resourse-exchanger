@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ resource.title }} - Student Resource Exchange{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="resource-detail">
+            <div class="resource-header">
+                <h1>{{ resource.title }}</h1>
+                <div class="resource-meta">
+                    <span class="category">{{ resource.category }}</span>
+                    <span class="condition">{{ resource.condition }}</span>
+                </div>
+            </div>
+
+            <div class="resource-content">
+                <div class="resource-image">
+                    {% if resource.image %}
+                        <img src="{{ resource.image.url }}" alt="{{ resource.title }}">
+                    {% else %}
+                        <div class="no-image">📄</div>
+                    {% endif %}
+                </div>
+
+                <div class="resource-info">
+                    <div class="price-section">
+                        {% if resource.price %}
+                            <span class="price">₹{{ resource.price }}</span>
+                        {% elif resource.exchange_only %}
+                            <span class="price">Exchange Only</span>
+                        {% else %}
+                            <span class="price">Free</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="seller-info">
+                        <h3>Seller Information</h3>
+                        <p><strong>Name:</strong> {{ resource.uploaded_by.get_full_name|default:resource.uploaded_by.username }}</p>
+                        <p><strong>Campus:</strong> Sharnbasva University</p>
+                    </div>
+
+                    <div class="description">
+                        <h3>Description</h3>
+                        <p>{{ resource.description }}</p>
+                    </div>
+
+                    {% if resource.subject %}
+                        <p><strong>Subject:</strong> {{ resource.subject }}</p>
+                    {% endif %}
+                    {% if resource.semester %}
+                        <p><strong>Semester:</strong> {{ resource.semester }}</p>
+                    {% endif %}
+
+                    <div class="actions">
+                        <button class="btn btn-primary">Contact Seller</button>
+                        <button class="btn btn-secondary">Save for Later</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

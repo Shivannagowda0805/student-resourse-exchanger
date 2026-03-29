@@ -5,16 +5,36 @@ from django.core.paginator import Paginator
 from .models import Resource
 from .forms import ResourceUploadForm
 
-@login_required
 def resource_list(request):
     resources = Resource.objects.filter(is_approved=True)
-    resource_type = request.GET.get('type')
-    subject = request.GET.get('subject')
+    category = request.GET.get('category')
+    q = request.GET.get('q')  # search query
+    price_min = request.GET.get('price_min')
+    price_max = request.GET.get('price_max')
+    conditions = request.GET.getlist('condition')
+    location = request.GET.get('location')
+    sort = request.GET.get('sort', 'newest')
 
-    if resource_type:
-        resources = resources.filter(resource_type=resource_type)
-    if subject:
-        resources = resources.filter(subject__icontains=subject)
+    if category:
+        resources = resources.filter(category=category)
+    if q:
+        resources = resources.filter(title__icontains=q) | resources.filter(description__icontains=q) | resources.filter(subject__icontains=q)
+    if price_min:
+        resources = resources.filter(price__gte=price_min)
+    if price_max and price_max != '1000':
+        resources = resources.filter(price__lte=price_max)
+    if conditions:
+        resources = resources.filter(condition__in=conditions)
+    if location:
+        # Assuming location is campus, but since no field, maybe filter by user profile or something
+        pass
+    if sort == 'price-low':
+        resources = resources.order_by('price')
+    elif sort == 'relevant':
+        # For now, same as newest
+        pass
+    else:
+        resources = resources.order_by('-uploaded_at')
 
     paginator = Paginator(resources, 12)  # 12 resources per page
     page_number = request.GET.get('page')
@@ -22,7 +42,7 @@ def resource_list(request):
 
     context = {
         'page_obj': page_obj,
-        'resource_types': Resource.RESOURCE_TYPES,
+        'categories': Resource.CATEGORY_CHOICES,
     }
     return render(request, 'resources/resource_list.html', context)
 
@@ -45,9 +65,9 @@ def my_resources(request):
     resources = Resource.objects.filter(uploaded_by=request.user)
     return render(request, 'resources/my_resources.html', {'resources': resources})
 
-@login_required
 def resource_detail(request, pk):
     resource = get_object_or_404(Resource, pk=pk, is_approved=True)
+    return render(request, 'resources/resource_detail.html', {'resource': resource})
     # Increment download count if user downloads
     if request.GET.get('download'):
         resource.downloads += 1

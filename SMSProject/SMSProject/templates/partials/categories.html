@@ -1,0 +1,27 @@
+<section class="categories-section section">
+    <div class="container">
+        <h2 class="section-title">Quick Categories</h2>
+        <div class="categories-grid">
+            <a href="{% url 'resource_list' %}?category=books" class="category-card">
+                <span class="category-icon">📚</span>
+                <span>Books</span>
+            </a>
+            <a href="{% url 'resource_list' %}?category=notes" class="category-card">
+                <span class="category-icon">📝</span>
+                <span>Notes</span>
+            </a>
+            <a href="{% url 'resource_list' %}?category=electronics" class="category-card">
+                <span class="category-icon">💻</span>
+                <span>Electronics</span>
+            </a>
+            <a href="{% url 'resource_list' %}?category=stationery" class="category-card">
+                <span class="category-icon">✏️</span>
+                <span>Stationery</span>
+            </a>
+            <a href="{% url 'resource_list' %}?category=lab-materials" class="category-card">
+                <span class="category-icon">🧪</span>
+                <span>Lab Materials</span>
+            </a>
+        </div>
+    </div>
+</section>

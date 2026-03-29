@@ -28,6 +28,8 @@ class RegisterForm(forms.ModelForm):
         fields = ['username', 'email', 'password']
 
 class LoginForm(AuthenticationForm):
+    username = forms.CharField(label='USN', widget=forms.TextInput(attrs={'placeholder': 'Enter your USN'}))
+    password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'placeholder': 'Enter your password'}))
     username = forms.CharField(label='USN', max_length=150)
     remember_me = forms.BooleanField(required=False, label='Remember me')
 

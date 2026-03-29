@@ -2,71 +2,157 @@
 <html lang="en">
 <head>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Student Resource Exchange - Share and access quality study materials with fellow students">
+    <meta name="keywords" content="student resources, study materials, academic sharing, university resources">
     <title>{% block title %}Student Resource Exchange - Share & Learn Together{% endblock %}</title>
-  </head>
+
+    <!-- Optimized Fonts with preload -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Optimized Styles with preload -->
+    <link rel="preload" href="{% static 'css/styles.css' %}" as="style">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <!-- Optimized Scripts -->
+    <script src="{% static 'js/theme-toggle.js' %}" defer></script>
+    <script src="{% static 'js/main.js' %}" defer></script>
+
+    {% block extra_head %}{% endblock %}
+</head>
 <body>
-    <div class="main-content">
-        <div class="top-section">
-            <div class="top-container">
-                <img src="{% static 'images/logo.png' %}" alt="Sharnbasva University Logo" style="max-width: 100%; height: 90px; margin-bottom: 10px; display: block;" />
-                <div class="logo">📚 Student Resource Exchange</div>
-                <nav>
-                    <ul>
-                        <li><a href="{% url 'home' %}">Home</a></li>
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="{% static 'images/logo.png' %}" alt="Sharnbasva University Logo" class="logo-image">
+                    <div class="logo-text">
+                        <h1>Student Resource Exchange</h1>
+                        <p>Share & Learn Together</p>
+                    </div>
+                </div>
+
+                <div class="header-actions">
+                    <div class="search-container">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                        <input type="search" class="search-input" placeholder="Search textbooks, notes, electronics..." aria-label="Search resources">
+                    </div>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'upload_resource' %}" class="btn btn-primary btn-lg post-cta">Post Resource</a>
+                    {% endif %}
+                </div>
+
+                <nav class="main-nav" role="navigation" aria-label="Main navigation">
+                    <button class="mobile-menu-toggle" aria-expanded="false" aria-label="Toggle navigation menu">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </button>
+
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="{% url 'home' %}" class="nav-link">Home</a>
+                        </li>
                         {% if user.is_authenticated %}
-                            <li><a href="{% url 'resource_list' %}">Browse Resources</a></li>
-                            <li><a href="{% url 'upload_resource' %}">Upload</a></li>
-                            <li><a href="{% url 'my_resources' %}">My Resources</a></li>
-                            <li><a href="{% url 'logout' %}">Logout</a></li>
+                            <li class="nav-item">
+                                <a href="{% url 'resource_list' %}" class="nav-link">Browse</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'my_resources' %}" class="nav-link">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+                            </li>
                         {% else %}
-                            <li><a href="{% url 'login' %}">Login</a></li>
-                            <li><a href="{% url 'register' %}">Register</a></li>
+                            <li class="nav-item">
+                                <a href="{% url 'login' %}" class="nav-link">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'register' %}" class="nav-link btn btn-primary btn-sm">Sign Up</a>
+                            </li>
                         {% endif %}
+                        <li class="nav-item theme-toggle">
+                            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark/light mode">
+                                <span class="theme-icon">🌙</span>
+                            </button>
+                        </li>
                     </ul>
                 </nav>
             </div>
         </div>
-        {% block content %}{% endblock %}
-    </div>
+    </header>
 
-    <footer>
-        <div class="footer-container">
+    <main class="main-content" role="main" id="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% if user.is_authenticated %}
+    <a href="{% url 'upload_resource' %}" class="fab" aria-label="Post a Resource">
+        <span class="fab-icon">+</span>
+    </a>
+    {% endif %}
+
+    <footer class="site-footer">
+        <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>Platform</h4>
+                    <h3>Student Resource Exchange</h3>
+                    <p>Connecting students across Sharnbasva University to share, exchange, and access quality academic resources affordably.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="LinkedIn">💼</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Platform</h3>
                     <ul>
                         <li><a href="{% url 'home' %}">Home</a></li>
                         <li><a href="{% url 'resource_list' %}">Browse Resources</a></li>
-                        <li><a href="{% url 'upload_resource' %}">Upload Resources</a></li>
-                        <li><a href="#">Support</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'upload_resource' %}">Upload Resource</a></li>
+                            <li><a href="{% url 'my_resources' %}">My Resources</a></li>
+                        {% else %}
+                            <li><a href="{% url 'login' %}">Login</a></li>
+                            <li><a href="{% url 'register' %}">Sign Up</a></li>
+                        {% endif %}
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Community</h4>
+                    <h3>Support</h3>
                     <ul>
-                        <li><a href="#">Study Groups</a></li>
-                        <li><a href="#">Discussion Forums</a></li>
-                        <li><a href="#">Events</a></li>
-                        <li><a href="#">Blog</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Help Center</a></li>
                         <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Safety Guidelines</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Campus Partners</a></li>
+                        <li><a href="#">Student Guidelines</a></li>
+                        <li><a href="#">Report Issues</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Student Resource Exchange. All rights reserved. Made with ❤️ for students, by students.</p>
+                <p>&copy; 2026 Student Resource Exchange - Sharnbasva University. All rights reserved.</p>
+                <p>Made with ❤️ for students, by students.</p>
             </div>
         </div>
     </footer>
+
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 </body>
 </html>

@@ -139,11 +139,45 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="{{ form.resource_type.id_for_label }}">Resource Type *</label>
-                    {{ form.resource_type }}
-                    {% if form.resource_type.errors %}
-                        <div class="error">{{ form.resource_type.errors.0 }}</div>
+                    <label for="{{ form.category.id_for_label }}">Category *</label>
+                    {{ form.category }}
+                    {% if form.category.errors %}
+                        <div class="error">{{ form.category.errors.0 }}</div>
                     {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.price.id_for_label }}">Price (₹)</label>
+                    {{ form.price }}
+                    {% if form.price.errors %}
+                        <div class="error">{{ form.price.errors.0 }}</div>
+                    {% endif %}
+                    <div class="help-text">Leave blank for free resources</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.condition.id_for_label }}">Condition *</label>
+                    {{ form.condition }}
+                    {% if form.condition.errors %}
+                        <div class="error">{{ form.condition.errors.0 }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.exchange_only.id_for_label }}">{{ form.exchange_only.label }}</label>
+                    {{ form.exchange_only }}
+                    {% if form.exchange_only.errors %}
+                        <div class="error">{{ form.exchange_only.errors.0 }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.image.id_for_label }}">Image</label>
+                    {{ form.image }}
+                    {% if form.image.errors %}
+                        <div class="error">{{ form.image.errors.0 }}</div>
+                    {% endif %}
+                    <div class="help-text">Upload an image of the resource (optional)</div>
                 </div>
 
                 <div class="form-group">

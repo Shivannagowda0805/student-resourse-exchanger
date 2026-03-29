@@ -3,104 +3,137 @@
 {% block title %}Register - Student Resource Exchange{% endblock %}
 
 {% block extra_styles %}
-        .register-container {
-            max-width: 400px;
-            margin: 120px auto 40px;
-            background-color: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .register-container h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        .messages {
-            list-style: none;
-            padding: 0;
-            margin-bottom: 20px;
-        }
-        .messages li {
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 4px;
-        }
-        .messages .success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .messages .error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        .register-container form p {
-            margin-bottom: 15px;
-        }
-        .register-container form label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-        }
-        .register-container form input[type="text"],
-        .register-container form input[type="email"],
-        .register-container form input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .register-container form input[type="text"]:focus,
-        .register-container form input[type="email"]:focus,
-        .register-container form input[type="password"]:focus {
-            border-color: #667eea;
-            outline: none;
-        }
-        .register-container button {
-            width: 100%;
-            padding: 12px;
-            background-color: #667eea;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        .register-container button:hover {
-            background-color: #5a67d8;
-        }
-        .register-container p {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .register-container a {
-            color: #667eea;
-            text-decoration: none;
-        }
-        .register-container a:hover {
-            text-decoration: underline;
-        }
+<style>
+.centered-page {
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: #f8fafc;
+}
+.form-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 2rem;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    background: #ffffff;
+}
+.form-card h1 {
+    text-align: center;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+}
+.form-card .icon {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+.messages {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+}
+.messages li {
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: var(--radius);
+    font-weight: 500;
+}
+.messages .success {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+.messages .error {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--error);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+.register-form {
+    margin-bottom: 1.5rem;
+}
+.register-form p {
+    margin-bottom: 1rem;
+}
+.register-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+.register-form input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+.register-form input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+}
+.form-card button {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.75rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.form-card button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+.login-link {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+.login-link a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+.login-link a:hover {
+    text-decoration: underline;
+}
+</style>
 {% endblock %}
 
 {% block content %}
-    <div class="register-container">
-        <h1>Register for Student Resource Exchange</h1>
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Register</button>
-        </form>
+<div class="centered-page">
+  <div class="form-card fade-in-up">
+    <div class="icon">📝</div>
+    <h1>Register</h1>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form method="post" class="register-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Create Account</button>
+    </form>
+    <div class="login-link">
         <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
     </div>
+  </div>
+</div>
 {% endblock %}
