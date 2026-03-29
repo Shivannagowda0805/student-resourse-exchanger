@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Resource Exchange - Share & Learn Together{% endblock %}
+
+{% block extra_styles %}{% endblock %}
+
+{% block content %}
+    <section class="hero-section">
+        <div class="hero-container">
+            {% if user.is_authenticated %}
+                <h1>Welcome back, {{ user.get_full_name|default:user.username }}!</h1>
+                <p class="hero-desc">We're glad to see you again! Jump into your dashboard to manage your resources and connect with peers.</p>
+                <div class="cta-buttons">
+                    <a href="#dashboard" class="btn-hero btn-hero-primary">View Dashboard</a>
+                </div>
+            {% else %}
+                <h1>Welcome to Student Resource Exchange</h1>
+                <p class="hero-desc">Empowering students to share, discover, and access quality study materials. Join our vibrant community and boost your academic journey together!</p>
+                <div class="cta-buttons">
+                    <a href="{% url 'register' %}" class="btn-hero btn-hero-primary">Get Started</a>
+                    <a href="{% url 'login' %}" class="btn-hero btn-hero-secondary">Login</a>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    {% if user.is_authenticated %}
+    <section class="dashboard" id="dashboard">
+        <div class="features-container">
+            <h2>Your Student Dashboard</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>📚 Browse Resources</h3>
+                    <p>Explore notes, assignments, and study materials shared by fellow students</p>
+                    <a href="{% url 'resource_list' %}" class="btn">Browse Resources</a>
+                </div>
+                <div class="feature-card">
+                    <h3>📤 Upload Resources</h3>
+                    <p>Share your notes and study materials with the community</p>
+                    <a href="{% url 'upload_resource' %}" class="btn">Upload Resources</a>
+                </div>
+                <div class="feature-card">
+                    <h3>👤 My Profile</h3>
+                    <p>View and edit your profile information</p>
+                    <a href="#" class="btn">View Profile</a>
+                </div>
+                <div class="feature-card">
+                    <h3>📊 My Resources</h3>
+                    <p>Manage the resources you've uploaded</p>
+                    <a href="{% url 'my_resources' %}" class="btn">My Resources</a>
+                </div>
+                <div class="feature-card">
+                    <h3>💬 Discussions</h3>
+                    <p>Join study groups and discussions</p>
+                    <a href="#" class="btn">Join Discussions</a>
+                </div>
+                <div class="feature-card">
+                    <h3>🏆 Leaderboard</h3>
+                    <p>See top contributors and most helpful resources</p>
+                    <a href="#" class="btn">View Leaderboard</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% else %}
+    <section class="features" id="features">
+        <div class="features-container">
+            <h2>Why Choose Our Platform?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>📖 Rich Resources</h3>
+                    <p>Find notes, assignments, presentations, and guides from top-performing students in every subject. Our library is always growing with your contributions!</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🤝 Collaborative Learning</h3>
+                    <p>Connect with peers, join study groups, and participate in friendly discussions to make learning more fun and effective.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎯 Quality Assurance</h3>
+                    <p>All resources are reviewed and rated by students like you, so you always get the best and most helpful materials.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📱 Easy Access</h3>
+                    <p>Access your resources anytime, anywhere—on your phone, tablet, or computer. Learning fits your lifestyle!</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🏆 Gamification</h3>
+                    <p>Earn points and badges for sharing resources and helping others. See your name on the leaderboard and celebrate your achievements!</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔒 Secure & Private</h3>
+                    <p>Your data and resources are protected with strong security, so you can focus on learning and sharing with confidence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - Student Resource Exchange{% endblock %}
+
+{% block extra_styles %}
+{% block extra_styles %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+<div class="card login-container fade-in-up">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🔐</div>
+        <h1>Login</h1>
+    </div>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Sign In</button>
+    </form>
+    <div style="text-align: center; margin-top: 1.5rem;">
+        <p style="color: var(--gray-700); font-size: 0.95rem;">Don't have an account? <a href="{% url 'register' %}" style="color: var(--primary); font-weight: 600;">Register here</a></p>
+    </div>
+</div>
+{% endblock %}
