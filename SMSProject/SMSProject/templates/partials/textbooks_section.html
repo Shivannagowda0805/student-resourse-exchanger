@@ -1,0 +1,117 @@
+<section id="textbooks-section" class="textbooks-section section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Textbooks</h2>
+            <button class="btn btn-primary" id="upload-textbooks-btn">Upload Textbook</button>
+        </div>
+
+        <div class="search-filter-container">
+            <div class="search-bar">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" id="textbooks-search" class="search-input" placeholder="Search textbooks by title, author, subject..." aria-label="Search textbooks">
+            </div>
+            <div class="filters">
+                <select id="textbooks-department-filter" class="form-select">
+                    <option value="">All Departments</option>
+                    <option value="cse">Computer Science</option>
+                    <option value="ise">Information Science</option>
+                    <option value="ece">Electronics & Communication</option>
+                    <option value="eee">Electrical & Electronics</option>
+                    <option value="mechanical">Mechanical</option>
+                    <option value="civil">Civil</option>
+                    <option value="other">Other</option>
+                </select>
+                <select id="textbooks-semester-filter" class="form-select">
+                    <option value="">All Semesters</option>
+                    <option value="1">Semester 1</option>
+                    <option value="2">Semester 2</option>
+                    <option value="3">Semester 3</option>
+                    <option value="4">Semester 4</option>
+                    <option value="5">Semester 5</option>
+                    <option value="6">Semester 6</option>
+                    <option value="7">Semester 7</option>
+                    <option value="8">Semester 8</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="textbooks-grid" class="resource-grid">
+            <!-- Textbooks will be populated by JavaScript -->
+        </div>
+
+        <div id="textbooks-empty-state" class="empty-state" style="display: none;">
+            <span class="empty-state-icon">📚</span>
+            <h3 class="empty-state-title">No textbooks found</h3>
+            <p class="empty-state-description">Be the first to upload textbooks for your department!</p>
+        </div>
+    </div>
+</section>
+
+<!-- Upload Textbooks Modal -->
+<div id="upload-textbooks-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Upload Textbook</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <form id="upload-textbooks-form" class="upload-form">
+            <div class="form-group">
+                <label for="textbook-title" class="form-label">Book Title *</label>
+                <input type="text" id="textbook-title" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="textbook-author" class="form-label">Author *</label>
+                <input type="text" id="textbook-author" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="textbook-subject" class="form-label">Subject *</label>
+                <input type="text" id="textbook-subject" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="textbook-department" class="form-label">Department *</label>
+                <select id="textbook-department" class="form-select" required>
+                    <option value="">Select Department</option>
+                    <option value="cse">Computer Science</option>
+                    <option value="ise">Information Science</option>
+                    <option value="ece">Electronics & Communication</option>
+                    <option value="eee">Electrical & Electronics</option>
+                    <option value="mechanical">Mechanical</option>
+                    <option value="civil">Civil</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="textbook-semester" class="form-label">Semester *</label>
+                <select id="textbook-semester" class="form-select" required>
+                    <option value="">Select Semester</option>
+                    <option value="1">Semester 1</option>
+                    <option value="2">Semester 2</option>
+                    <option value="3">Semester 3</option>
+                    <option value="4">Semester 4</option>
+                    <option value="5">Semester 5</option>
+                    <option value="6">Semester 6</option>
+                    <option value="7">Semester 7</option>
+                    <option value="8">Semester 8</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="textbook-file" class="form-label">Upload File *</label>
+                <div class="file-upload-area" id="textbook-file-upload">
+                    <div class="file-upload-content">
+                        <span class="upload-icon">📖</span>
+                        <p>Drag & drop your file here or <span class="upload-link">browse</span></p>
+                        <input type="file" id="textbook-file" accept=".pdf,.epub,.mobi" style="display: none;">
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                <button type="submit" class="btn btn-primary">Upload Textbook</button>
+            </div>
+        </form>
+    </div>
+</div></content>
+<parameter name="filePath">c:\Users\Asus\OneDrive\Documents\student resourse exchanger\SMSProject\SMSProject\templates\partials\textbooks_section.html

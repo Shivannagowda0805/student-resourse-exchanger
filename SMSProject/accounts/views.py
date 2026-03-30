@@ -7,14 +7,26 @@ def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password'])
-            user.save()
-            login(request, user)
-            messages.success(request, 'Registration successful!')
-            return redirect('home')  # Redirect to home
+            user = User.objects.create_user(
+                username=form.cleaned_data['email'].split('@')[0],  # username from email prefix
+                email=form.cleaned_data['email'],
+                first_name=form.cleaned_data['full_name'],
+                password=form.cleaned_data['password']
+            )
+            
+            # Create UserProfile
+            UserProfile.objects.create(
+                user=user,
+                department=form.cleaned_data['department']
+            )
+            
+            user = authenticate(request, username=user.username, password=form.cleaned_data['password'])
+            if user:
+                login(request, user)
+            messages.success(request, 'Registration successful! Welcome!')
+            return redirect('home')
         else:
-            messages.error(request, 'Registration failed. Please correct the errors below.')
+            messages.error(request, 'Registration failed. Please correct the errors.')
     else:
         form = RegisterForm()
     return render(request, 'accounts/register.html', {'form': form})
@@ -23,18 +35,21 @@ def login_view(request):
     if request.method == 'POST':
         form = LoginForm(data=request.POST)
         if form.is_valid():
-            user = form.get_user()
-            if form.cleaned_data.get('remember_me'):
-                # Session expires in 30 days
-                request.session.set_expiry(60 * 60 * 24 * 30)
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                if request.POST.get('remember_me'):
+                    request.session.set_expiry(60 * 60 * 24 * 30)
+                else:
+                    request.session.set_expiry(0)
+                messages.success(request, 'Login successful!')
+                return redirect('home')
             else:
-                # Session expires when browser closes
-                request.session.set_expiry(0)
-            login(request, user)
-            messages.success(request, 'Login successful!')
-            return redirect('home')
+                messages.error(request, 'Invalid USN/Email or password.')
         else:
-            messages.error(request, 'Invalid USN or password.')
+            messages.error(request, 'Please correct the errors below.')
     else:
         form = LoginForm()
     return render(request, 'accounts/login.html', {'form': form})

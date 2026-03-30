@@ -1,0 +1,39 @@
+/* Hero Greeting Styles */
+.user-greeting, .hero-welcome {
+  margin: 1.5rem 0 2rem;
+  text-align: center;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.user-greeting h2 {
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-welcome h2 {
+  font-size: clamp(1.75rem, 5vw, 2.75rem);
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.user-greeting p, .hero-welcome p {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin: 0 auto 1rem;
+}
+
+@media (max-width: 768px) {
+  .user-greeting h2, .hero-welcome h2 {
+    font-size: 1.5rem;
+  }
+  
+  .user-greeting p, .hero-welcome p {
+    font-size: 1rem;
+  }
+}

@@ -6,12 +6,5 @@
 
 {% block content %}
     {% include "partials/hero.html" %}
-    {% include "partials/trust_bar.html" %}
-    {% include "partials/categories.html" %}
-    {% cache 300 featured_listings %}
-        {% include "partials/featured_listings.html" %}
-    {% endcache %}
     {% include "partials/how_it_works.html" %}
-    {% include "partials/about_community.html" %}
-    {% include "partials/testimonials.html" %}
 {% endblock %}

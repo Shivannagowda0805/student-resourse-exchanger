@@ -16,6 +16,7 @@
     <!-- Optimized Styles with preload -->
     <link rel="preload" href="{% static 'css/styles.css' %}" as="style">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/hero-greeting.css' %}">
 
     <!-- Optimized Scripts -->
     <script src="{% static 'js/theme-toggle.js' %}" defer></script>
@@ -37,10 +38,6 @@
 
                 <div class="header-actions">
                     <div class="search-container">
-                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.35-4.35"></path>
-                        </svg>
                         <input type="search" class="search-input" placeholder="Search textbooks, notes, electronics..." aria-label="Search resources">
                     </div>
                     {% if user.is_authenticated %}
@@ -56,9 +53,6 @@
                     </button>
 
                     <ul class="nav-list">
-                        <li class="nav-item">
-                            <a href="{% url 'home' %}" class="nav-link">Home</a>
-                        </li>
                         {% if user.is_authenticated %}
                             <li class="nav-item">
                                 <a href="{% url 'resource_list' %}" class="nav-link">Browse</a>

@@ -1,0 +1,46 @@
+<section id="question-papers-section" class="question-papers-section section">
+    <div class="container">
+        <h2 class="section-title">Previous Year Question Papers</h2>
+        <div class="search-filter-container">
+            <div class="search-bar">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" id="question-paper-search" class="search-input" placeholder="Search by subject, department, semester..." aria-label="Search question papers">
+            </div>
+            <div class="filters">
+                <select id="qp-department-filter" class="form-select">
+                    <option value="">All Departments</option>
+                    <option value="cse">Computer Science</option>
+                    <option value="ise">Information Science</option>
+                    <option value="ece">Electronics & Communication</option>
+                    <option value="eee">Electrical & Electronics</option>
+                    <option value="mechanical">Mechanical</option>
+                    <option value="civil">Civil</option>
+                    <option value="other">Other</option>
+                </select>
+                <select id="qp-semester-filter" class="form-select">
+                    <option value="">All Semesters</option>
+                    <option value="1">Semester 1</option>
+                    <option value="2">Semester 2</option>
+                    <option value="3">Semester 3</option>
+                    <option value="4">Semester 4</option>
+                    <option value="5">Semester 5</option>
+                    <option value="6">Semester 6</option>
+                    <option value="7">Semester 7</option>
+                    <option value="8">Semester 8</option>
+                </select>
+            </div>
+        </div>
+        <div id="question-papers-grid" class="resource-grid">
+            <!-- Question papers will be populated by JavaScript -->
+        </div>
+        <div id="qp-empty-state" class="empty-state" style="display: none;">
+            <span class="empty-state-icon">📄</span>
+            <h3 class="empty-state-title">No question papers found</h3>
+            <p class="empty-state-description">Try adjusting your search or filters to find what you're looking for.</p>
+        </div>
+    </div>
+</section></content>
+<parameter name="filePath">c:\Users\Asus\OneDrive\Documents\student resourse exchanger\SMSProject\SMSProject\templates\partials\question_papers.html

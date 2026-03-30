@@ -1,16 +1,26 @@
 <section class="hero-section section-lg">
     <div class="container">
         <div class="hero-content">
-            <h1>Find, Exchange, or Sell Student Resources</h1>
-            <p class="hero-description">A trusted campus marketplace for affordable, verified student deals.</p>
-            <form class="hero-search-form" method="get" action="{% url 'resource_list' %}">
-                <input type="text" name="q" placeholder="Search by Subject, Book, or Course Code" aria-label="Search resources" required>
-                <button type="submit" class="btn btn-primary">Search</button>
-            </form>
+            {% if user.is_authenticated %}
+                <div class="user-greeting">
+                    <h1>Welcome back, {{ user.first_name|default:user.username|default:"Student" }}! 👋</h1>
+                    <p>Here's your personalized dashboard with the latest study materials:</p>
+                </div>
+            {% else %}
+                <div class="hero-welcome">
+                    <h1>Welcome to Student Resource Exchange! 🎓</h1>
+                    <p>Join thousands of students sharing question papers, notes, and textbooks across all departments.</p>
+                </div>
+            {% endif %}
+            
+            <div class="hero-search-form">
+                <input type="text" id="global-search" placeholder="Search across all resources..." aria-label="Global search" class="search-input">
+                <button type="button" id="global-search-btn" class="btn btn-primary">Search All</button>
+            </div>
             <div class="hero-buttons">
-                <a href="{% url 'resource_list' %}" class="btn btn-secondary">Start Learning</a>
+                <a href="#department-selection" class="btn btn-secondary">Browse by Department</a>
                 {% if not user.is_authenticated %}
-                    <a href="{% url 'login' %}" class="btn btn-outline">Sign In</a>
+                    <a href="{% url 'login' %}" class="btn btn-primary">Get Started</a>
                 {% endif %}
             </div>
         </div>
